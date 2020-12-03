@@ -1,0 +1,17 @@
+{
+  "name": "keycloak-admin-console",
+  "productName": "Keycloak Admin Console",
+  "description": "Electron application that wraps the keycloak admin console so that it can be used to administrate any keycloak",
+  "version": "1.4.0",
+  "main": "./main.prod.js",
+  "author": {
+    "name": "Erik Jan de Wit",
+    "email": "erikjan.dewit@gmail.com",
+    "url": "http://keycloak.org"
+  },
+  "scripts": {
+    "electron-rebuild": "node -r ../internals/scripts/BabelRegister.js ../internals/scripts/ElectronRebuild.js",
+    "postinstall": "yarn electron-rebuild"
+  },
+  "license": "MIT"
+}
