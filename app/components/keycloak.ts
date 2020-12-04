@@ -4,10 +4,11 @@ import qs from 'querystringify';
 
 export const fetchToken = async (
   host: string,
+  realm: string,
   accessToken: string,
   refreshToken: string
 ) => {
-  const url = `${host}/realms/master/protocol/openid-connect/token`;
+  const url = `${host}/realms/${realm}/protocol/openid-connect/token`;
   const body = {
     client_id: 'admin-cli',
     grant_type: 'refresh_token',
@@ -32,6 +33,7 @@ export const refreshToken = (
   setInterval(async () => {
     const response = await fetchToken(
       adminClient.baseUrl,
+      adminClient.realm,
       adminClient.accessToken,
       adminClient.refreshToken
     );

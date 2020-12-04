@@ -11,7 +11,12 @@ import { ExclamationCircleIcon } from '@patternfly/react-icons';
 
 type Validated = 'success' | 'warning' | 'error' | 'default';
 type LoginProps = {
-  onLogin: (host: string, username: string, password: string) => void;
+  onLogin: (
+    host: string,
+    realm: string,
+    username: string,
+    password: string
+  ) => void;
   onCancel: () => void;
 };
 
@@ -20,6 +25,7 @@ export default function Login({ onLogin, onCancel }: LoginProps) {
     value: string;
     validated: Validated;
   }>({ value: '', validated: 'default' });
+  const [realm, setRealm] = useState('master');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -36,7 +42,7 @@ export default function Login({ onLogin, onCancel }: LoginProps) {
     });
   };
 
-  const login = () => onLogin(host.value, username, password);
+  const login = () => onLogin(host.value, realm, username, password);
   return (
     <LoginPage loginTitle="Add keycloak instance">
       <>
@@ -45,6 +51,7 @@ export default function Login({ onLogin, onCancel }: LoginProps) {
             label="Host"
             isRequired
             fieldId="host"
+            helperText="location of keycloak e.g. http://localhost:8080/auth"
             helperTextInvalid="Please enter a valid keycloak location"
             helperTextInvalidIcon={<ExclamationCircleIcon />}
             validated={host.validated}
@@ -57,6 +64,16 @@ export default function Login({ onLogin, onCancel }: LoginProps) {
               name="host"
               value={host.value}
               onChange={handleHostChange}
+            />
+          </FormGroup>
+          <FormGroup label="Realm" isRequired fieldId="realm">
+            <TextInput
+              isRequired
+              type="text"
+              id="realm"
+              name="realm"
+              value={realm}
+              onChange={setRealm}
             />
           </FormGroup>
           <FormGroup label="Username" isRequired fieldId="username">
