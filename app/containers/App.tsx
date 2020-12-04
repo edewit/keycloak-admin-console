@@ -17,10 +17,11 @@ export default function App({ onLogin, adminClient }: AppProps) {
   const [servers, setServers] = useStorage<KeycloakServer[]>('servers', []);
 
   const fetchRefreshToken = useCallback(
-    async (host: string) => {
+    async (host: string, realm: string) => {
       try {
         const response = await fetchToken(
           host,
+          realm,
           adminClient.accessToken,
           adminClient.refreshToken
         );
@@ -41,9 +42,10 @@ export default function App({ onLogin, adminClient }: AppProps) {
       {(servers.length === 0 || refreshFailed) && (
         <Login
           onCancel={() => setRefreshFailed(false)}
-          onLogin={async (host, username, password) => {
+          onLogin={async (host, realm, username, password) => {
             adminClient.setConfig({
               baseUrl: host,
+              realmName: realm,
             });
             await adminClient.auth({
               username,
@@ -53,8 +55,11 @@ export default function App({ onLogin, adminClient }: AppProps) {
               offlineToken: true,
             });
 
-            await fetchRefreshToken(host);
-            setServers([...servers, { host, token: adminClient.refreshToken }]);
+            await fetchRefreshToken(host, realm);
+            setServers([
+              ...servers,
+              { host, realm, token: adminClient.refreshToken },
+            ]);
           }}
         />
       )}
@@ -66,7 +71,7 @@ export default function App({ onLogin, adminClient }: AppProps) {
               baseUrl: server.host,
             });
             adminClient.refreshToken = server.token;
-            fetchRefreshToken(server.host);
+            fetchRefreshToken(server.host, server.realm);
           }}
           onAddServer={() => setRefreshFailed(true)}
         />
