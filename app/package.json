@@ -2,7 +2,7 @@
   "name": "keycloak-admin-console",
   "productName": "Keycloak Admin Console",
   "description": "Electron application that wraps the keycloak admin console so that it can be used to administrate any keycloak",
-  "version": "1.4.0",
+  "version": "0.0.1",
   "main": "./main.prod.js",
   "author": {
     "name": "Erik Jan de Wit",

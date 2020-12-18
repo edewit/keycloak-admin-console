@@ -276,7 +276,7 @@
     "file-saver": "^2.0.5",
     "history": "^4.7.2",
     "i18next": "^19.8.4",
-    "keycloak-admin": "1.14.3",
+    "keycloak-admin": "1.14.4",
     "openid-client": "^4.2.2",
     "querystringify": "^2.2.0",
     "react": "^16.13.1",
