@@ -33,7 +33,7 @@ export const refreshToken = (
   setInterval(async () => {
     const response = await fetchToken(
       adminClient.baseUrl,
-      adminClient.realm,
+      adminClient.realmName,
       adminClient.accessToken,
       adminClient.refreshToken
     );
