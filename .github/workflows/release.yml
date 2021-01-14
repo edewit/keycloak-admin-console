@@ -11,6 +11,9 @@ jobs:
         os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
+      - name: update keycloak-admin-ui
+        run : |
+          ./update.sh
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         with:
