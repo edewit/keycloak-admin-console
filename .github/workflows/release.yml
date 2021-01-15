@@ -11,6 +11,14 @@ jobs:
         os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
       - name: Electron Builder Action
         uses: samuelmeuli/action-electron-builder@v1.6.0
         with:
