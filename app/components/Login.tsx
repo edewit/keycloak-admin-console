@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import {
   ActionGroup,
+  Alert,
   Button,
+  Divider,
   Form,
   FormGroup,
   LoginPage,
   TextInput,
 } from '@patternfly/react-core';
 import { ExclamationCircleIcon } from '@patternfly/react-icons';
+
+export type ErrorType = {
+  message: string;
+  severity: 'warning' | 'danger';
+};
 
 type Validated = 'success' | 'warning' | 'error' | 'default';
 type LoginProps = {
@@ -18,9 +25,10 @@ type LoginProps = {
     password: string
   ) => void;
   onCancel: () => void;
+  errors: ErrorType[];
 };
 
-export default function Login({ onLogin, onCancel }: LoginProps) {
+export default function Login({ onLogin, onCancel, errors }: LoginProps) {
   const [host, setHost] = useState<{
     value: string;
     validated: Validated;
@@ -46,6 +54,14 @@ export default function Login({ onLogin, onCancel }: LoginProps) {
   return (
     <LoginPage loginTitle="Add keycloak instance">
       <>
+        {errors.map((error) => (
+          <Alert
+            isInline
+            key={error.message}
+            variant={error.severity}
+            title={error.message}
+          />
+        ))}
         <Form>
           <FormGroup
             label="Host"

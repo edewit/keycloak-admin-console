@@ -31,12 +31,16 @@ export const refreshToken = (
   interval: number
 ) => {
   setInterval(async () => {
-    const response = await fetchToken(
-      adminClient.baseUrl,
-      adminClient.realmName,
-      adminClient.accessToken,
-      adminClient.refreshToken
-    );
-    adminClient.setAccessToken(response.accessToken);
+    try {
+      const response = await fetchToken(
+        adminClient.baseUrl,
+        adminClient.realmName,
+        adminClient.accessToken,
+        adminClient.refreshToken
+      );
+      adminClient.setAccessToken(response.accessToken);
+    } catch (error) {
+      window.location.reload();
+    }
   }, interval * 1000);
 };

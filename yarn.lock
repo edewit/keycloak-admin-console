@@ -4297,9 +4297,9 @@ caniuse-db@^1.0.30001090:
   integrity sha512-PVceN/xk7+YZBR51V8qbLpB/Q7aZReJsZNnfCwA9vPne1t6VDEYRk9pWxLYgnKNn5ap+yUbTFLq1nOE9xy8Cag==
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000844, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001111:
-  version "1.0.30001114"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001114.tgz#2e88119afb332ead5eaa330e332e951b1c4bfea9"
-  integrity sha512-ml/zTsfNBM+T1+mjglWRPgVsu2L76GAaADKX5f4t0pbhttEp0WMawJsHDYlFkVZkoA+89uvBRrVrEE4oqenzXQ==
+  version "1.0.30001185"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001185.tgz"
+  integrity sha512-Fpi4kVNtNvJ15H0F6vwmXtb3tukv3Zg3qhKkOGUq7KJ1J6b9kf4dnNgtEAFXhRsJo0gNj9W60+wBvn0JcTvdTg==
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -9429,10 +9429,10 @@ keyboardevents-areequal@^0.2.1:
   resolved "https://registry.yarnpkg.com/keyboardevents-areequal/-/keyboardevents-areequal-0.2.2.tgz#88191ec738ce9f7591c25e9056de928b40277194"
   integrity sha512-Nv+Kr33T0mEjxR500q+I6IWisOQ0lK1GGOncV0kWE6n4KFmpcu7RUX5/2B0EUtX51Cb0HjZ9VJsSY3u4cBa0kw==
 
-keycloak-admin@1.14.4:
-  version "1.14.4"
-  resolved "https://registry.yarnpkg.com/keycloak-admin/-/keycloak-admin-1.14.4.tgz#67f9a0991e88003f23a3c6a9d87c7a11294afd12"
-  integrity sha512-16/ctPH/Pz+XLL62tQp1d2XziMaPtxjthrfXcr+wfeJYMGH09QQTd1EDJjdFskuhZOhmYlifaAYPanQLwbUFEg==
+keycloak-admin@1.14.7:
+  version "1.14.7"
+  resolved "https://registry.yarnpkg.com/keycloak-admin/-/keycloak-admin-1.14.7.tgz#fe86f296cc6774ec3256b3211d5cd3c76cf79b9c"
+  integrity sha512-PvDcs8E9VVlhe/1Te/TA5AP8gOkQqIxOmI08Eae3gOvxtt7Ucdd4hxa/ZUX5B7/PvOQH+mFqP5XHVovAZWtmFA==
   dependencies:
     axios "^0.21.0"
     camelize "^1.0.0"

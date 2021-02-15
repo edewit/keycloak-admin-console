@@ -2,24 +2,28 @@ import React from 'react';
 import {
   Button,
   DataList,
+  DataListAction,
   DataListCell,
   DataListItem,
   DataListItemCells,
   DataListItemRow,
   LoginPage,
 } from '@patternfly/react-core';
+import { TimesIcon } from '@patternfly/react-icons';
 import { KeycloakServer } from './KeycloakServer';
 
 type ServerListProps = {
   servers: KeycloakServer[];
   onSelect: (server: KeycloakServer) => void;
   onAddServer: () => void;
+  removeServer: (index: nubmer) => void;
 };
 
 export default function ServerList({
   servers,
   onSelect,
   onAddServer,
+  removeServer,
 }: ServerListProps) {
   return (
     <LoginPage loginTitle="Server list">
@@ -30,7 +34,7 @@ export default function ServerList({
         {servers.map((server, index) => (
           <DataListItem
             aria-labelledby="Server"
-            key={server.token}
+            key={server.host}
             id={`${index}`}
           >
             <DataListItemRow>
@@ -41,6 +45,15 @@ export default function ServerList({
                   </DataListCell>,
                 ]}
               />
+              <DataListAction
+                id="delete"
+                aria-label="delete server"
+                aria-labelledby={`${index}`}
+              >
+                <Button variant="plain" onClick={() => removeServer(index)}>
+                  <TimesIcon />
+                </Button>
+              </DataListAction>
             </DataListItemRow>
           </DataListItem>
         ))}

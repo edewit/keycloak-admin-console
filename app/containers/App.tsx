@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import KeycloakAdminClient from 'keycloak-admin';
 import { KeycloakServer } from '../components/KeycloakServer';
-import Login from '../components/Login';
+import Login, { ErrorType } from '../components/Login';
 import ServerList from '../components/ServerList';
 import useStorage from '../components/storage';
 import { fetchToken, refreshToken } from '../components/keycloak';
@@ -15,6 +15,7 @@ type AppProps = {
 export default function App({ onLogin, adminClient }: AppProps) {
   const [refreshFailed, setRefreshFailed] = useState(false);
   const [servers, setServers] = useStorage<KeycloakServer[]>('servers', []);
+  const [errors, setErrors] = useState<ErrorType[]>([]);
 
   const fetchRefreshToken = useCallback(
     async (host: string, realm: string) => {
@@ -47,20 +48,28 @@ export default function App({ onLogin, adminClient }: AppProps) {
               baseUrl: host,
               realmName: realm,
             });
-            await adminClient.auth({
-              username,
-              password,
-              grantType: 'password',
-              clientId: 'admin-cli',
-              offlineToken: true,
-            });
+            try {
+              await adminClient.auth({
+                username,
+                password,
+                grantType: 'password',
+                clientId: 'admin-cli',
+                offlineToken: true,
+              });
 
-            await fetchRefreshToken(host, realm);
-            setServers([
-              ...servers,
-              { host, realm, token: adminClient.refreshToken },
-            ]);
+              await fetchRefreshToken(host, realm);
+              setServers([
+                ...servers,
+                { host, realm, token: adminClient.refreshToken },
+              ]);
+            } catch (error) {
+              setErrors([
+                ...errors,
+                { message: error.message, severity: 'danger' },
+              ]);
+            }
           }}
+          errors={errors}
         />
       )}
       {servers.length > 0 && !refreshFailed && (
@@ -71,9 +80,17 @@ export default function App({ onLogin, adminClient }: AppProps) {
               baseUrl: server.host,
             });
             adminClient.refreshToken = server.token;
-            fetchRefreshToken(server.host, server.realm);
+            try {
+              fetchRefreshToken(server.host, server.realm);
+            } catch (error) {
+              setRefreshFailed(true);
+            }
           }}
           onAddServer={() => setRefreshFailed(true)}
+          removeServer={(index) => {
+            servers.splice(index, 1);
+            setServers([...servers]);
+          }}
         />
       )}
     </>
